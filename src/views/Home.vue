@@ -11,7 +11,7 @@
         <el-aside :width="!isCollapse ? '65px' : '200px'">
           <el-switch v-model="isCollapse" active-color="#409EFF" inactive-color="#DCDFE6"></el-switch>
           <el-menu
-            default-active="1-4-1"
+            default-active="/home/send"
             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"

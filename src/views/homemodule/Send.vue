@@ -25,48 +25,52 @@
       </el-row>
     </div>
 
+    <!-- 输入框（改变vuex状态） -->
+    <div>
+      <h2>输入</h2>
+        <p>{{$store.state.newName}}</p>
 
+        <p>{{names}}</p>
+      <p>
+        <span>名称：</span>
+        {{form.name}}
+      </p>
+      <p>
+        <span>地址：</span>
+        {{form.region}}
+      </p>
 
+      <el-button type="text" @click="dialogFormVisible = true">添加地址</el-button>
 
-    <p>
-      <span>名称：</span>
-      {{form.name}}
-    </p>
-    <p>
-      <span>地址：</span>
-      {{form.region}}
-    </p>
-
-    <el-button type="text" @click="dialogFormVisible = true">添加地址</el-button>
-
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="活动名称" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item labelfo="活动区域" :label-width="formLabelWidth">
-          <!-- 下拉框 -->
-          <!-- <el-select v-model="form.region" placeholder="请选择活动区域">
+      <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+        <el-form :model="form">
+          <el-form-item label="活动名称" :label-width="formLabelWidth">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item labelfo="活动区域" :label-width="formLabelWidth">
+            <!-- 下拉框 -->
+            <!-- <el-select v-model="form.region" placeholder="请选择活动区域">
             <el-option v-for="(item,index) in sityList" :key="index" :label="item" :value="item">{{item}}</el-option>
-          </el-select>-->
+            </el-select>-->
 
-          <!-- 单选按钮 -->
-          <el-radio
-            v-model="form.region"
-            v-for="(item,index) in sityList"
-            :key="index"
-            :label="item"
-            :value="item"
-          >{{item}}</el-radio>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false,fn($event)">确 定</el-button>
-      </div>
-    </el-dialog>
+            <!-- 单选按钮 -->
+            <el-radio
+              v-model="form.region"
+              v-for="(item,index) in sityList"
+              :key="index"
+              :label="item"
+              :value="item"
+            >{{item}}</el-radio>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogFormVisible = false,fn($event)">确 定</el-button>
+        </div>
+      </el-dialog>
 
-    <button data-id="000" @click="fn($event)">提交</button>
+      <button data-id="000" @click="changeStore()">提交</button>
+    </div>
   </div>
 </template>
 <script>
@@ -124,6 +128,19 @@ export default {
       console.log(e);
       // console.log(num);
       console.log(this.form);
+    },
+    changeStore() {
+        //设置store
+        this.$store.commit('modifyAName',this.form)
+
+        //取store值
+        console.log(this.$store.state.newName);
+        
+    }
+  },
+  computed: {
+    names(){
+        return this.$store.state.newName
     }
   }
 };
@@ -134,14 +151,13 @@ export default {
   justify-content: space-between;
 }
 
-
 /* 中部内容部分 */
 
 .el-row {
   margin-bottom: 20px;
 }
-.el-row:last-child{
-     margin-bottom: 0;
+.el-row:last-child {
+  margin-bottom: 0;
 }
 
 .el-col {

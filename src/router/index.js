@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 
 // 路由懒加载
 const Home = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/Home.vue')
+const Login = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/login.vue')
 const Send = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Send.vue')
 const Management = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Management.vue')
 
@@ -19,9 +20,15 @@ const routes = [
   //   name: 'Home',
   //   component: Home
   // },
+  
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
   {
     path: '/',
-    redirect: '/home/send'
+    redirect: '/login' //初始化路由跳转
   },
   {
     path: '/home',
@@ -38,6 +45,7 @@ const routes = [
 
     ]
   },
+ 
   {
     path: '/about',
     name: 'About',

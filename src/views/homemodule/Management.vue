@@ -1,6 +1,9 @@
 <template>
   <div class="management">
      <h1>课程管理</h1>
+
+        <!-- vuex  -->
+      <p>{{$store.state.newName}}</p>
   </div>
 
 </template>
