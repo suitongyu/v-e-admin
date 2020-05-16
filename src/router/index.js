@@ -7,6 +7,13 @@ import VueRouter from 'vue-router'
 // 路由懒加载
 const Home = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/Home.vue')
 const Login = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/login.vue')
+const Column = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/column/Column.vue')
+const ColumnAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/column/Add.vue')
+const Article = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/article/Article.vue')
+const ArticleAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/article/Add.vue')
+
+
+
 const Send = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Send.vue')
 const Management = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Management.vue')
 
@@ -20,7 +27,7 @@ const routes = [
   //   name: 'Home',
   //   component: Home
   // },
-  
+
   {
     path: '/login',
     name: 'Login',
@@ -31,21 +38,53 @@ const routes = [
     redirect: '/login' //初始化路由跳转
   },
   {
-    path: '/home',
+    path: '/',
+    redirect: 'column',
     component: Home,
-    children: [
-      {
-        path: 'send',
-        component: Send
+    children: [{
+        path: 'column',
+        component: Column
       },
       {
-        path: 'management',
-        component: Management
-      }
+        path: 'column/add',
+        component: ColumnAdd
+      },
+      {
+        path: 'article',
+        component: Article
+      },
+      {
+        path: 'article/add',
+        component: ArticleAdd
+      },
+      // {
+      //   path: 'product',
+      //   component: Product
+      // },
+      // {
+      //   path: 'video',
+      //   component: Video
+      // },
+      // {
+      //   path: 'picture',
+      //   component: Picture
+      // },
+      // {
+      //   path: 'picture',
+      //   component: Picture
+      // },
+      // {
+      //   path: 'picture',
+      //   component: Picture
+      // },
+      // {
+      //   path: 'picture',
+      //   component: Picture
+      // }
 
     ]
   },
- 
+
   {
     path: '/about',
     name: 'About',
@@ -56,9 +95,10 @@ const routes = [
     component: About
 
   },
-
-
 ]
+
+
+
 
 const router = new VueRouter({
   mode: 'history',

@@ -3,15 +3,13 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
     <el-container style=" height: 100vh;">
-      <el-header>
-        管理系统
-      </el-header>
+      <el-header>管理系统</el-header>
       <el-container>
         <!-- 左边导航栏 -->
         <el-aside :width="!isCollapse ? '65px' : '200px'">
           <el-switch v-model="isCollapse" active-color="#409EFF" inactive-color="#DCDFE6"></el-switch>
           <el-menu
-            default-active="/home/send"
+            default-active="/column"
             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
@@ -27,30 +25,54 @@
                 <span slot="title">导航一</span>
               </template>
               <el-menu-item-group>
-                <span slot="title">分组一</span>
                 <el-menu-item index="1-1">选项1</el-menu-item>
                 <el-menu-item index="1-2">选项2</el-menu-item>
               </el-menu-item-group>
-              <el-menu-item-group title="分组2">
                 <el-menu-item index="1-3">选项3</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="1-4">
                 <span slot="title">选项4</span>
                 <el-menu-item index="1-4-1">选项1</el-menu-item>
               </el-submenu>
-            </el-submenu>-->
+            </el-submenu> -->
 
             <!-- <el-menu-item index="2">
               <i class="el-icon-menu"></i>
               <span slot="title">群发消息</span>
-            </el-menu-item> -->
+            </el-menu-item>-->
 
-            <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+            <!-- <el-menu-item v-for="(item,i) in navList" :key="i" :index="'/' + subItem.path">
               <template slot="title">
                 <i class="el-icon-menu"></i>
-                <span>{{ item.navItem }}</span>
+                <span>{{ item.authName }}</span>
               </template>
-            </el-menu-item>
+            </el-menu-item>-->
+
+             <!-- 一级菜单  -->
+            <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
+              <!-- 一级菜单的模板区域 -->
+              <template slot="title">
+                <i :class="iconObj[item.id]"></i>
+                <span>{{ item.authName}}</span>
+              </template>
+              <!-- 二级菜单 -->
+              <el-menu-item
+                :index="'/' + subItem.path"
+                v-for="subItem in item.children"
+                :key="subItem.id"
+                
+              >
+              <!-- @click="saveNavState('/' + subItem.path)" -->
+                <!-- 导航开启路由模式：
+                将index值作为导航路由-->
+                <!-- 二级菜单的模板区域 -->
+                <template slot="title">
+                  <i class="el-icon-menu"></i>
+                  <span>{{ subItem.authName}}</span>
+                </template>
+              </el-menu-item>
+            </el-submenu>
+           
 
           </el-menu>
         </el-aside>
@@ -58,7 +80,6 @@
         <el-main>
           <router-view></router-view>
         </el-main>
-
       </el-container>
     </el-container>
   </div>
@@ -75,13 +96,74 @@ export default {
   },
   data() {
     return {
-      navList: [
-        { name: "/home/send", navItem: "信息发送" },
-        { name: "/home/management", navItem: "课程管理" },
-        { name: "/home/User", navItem: "用户管理" },
-        { name: "/home/Personnel", navItem: "人员数据" },
-        { name: "/home/Alarm", navItem: "报警中心" }
+      // menuList1: [
+      //   { path: "home/column", authName: "栏目管理" },
+      //   { path: "home/management", authName: "文章内容" },
+      //   { path: "home/User", authName: "产品内容" },
+      //   { path: "home/Personnel", authName: "图片内容" },
+      //   { path: "home/Alarm", authName: "视频管理" },
+      //   { path: "home/Alarm", authName: "功能管理" },
+      //   { path: "home/Alarm", authName: "用户管理" },
+      //   { path: "home/Alarm", authName: "首页配置" },
+      //   { path: "home/Alarm", authName: "登录日志" }
+      // ],
+
+      // 左侧菜单数据
+      iconObj: {
+        "1": "iconfont icon-user",
+        "2": "iconfont icon-tijikongjian",
+        "3": "iconfont icon-shangpin",
+        "4": "iconfont icon-danju",
+        "5": "iconfont icon-baobiao"
+      },
+      //写死数据
+      menuList: [
+        {
+          id: 1,
+          authName: "栏目管理",
+          path: "column",
+          children: [
+            {
+              id: 11,
+              authName: "栏目列表",
+              path: "column",
+              children: [],
+              order: null
+            },
+             {
+              id: 12,
+              authName: "添加栏目",
+              path: "column/add",
+              children: [],
+              order: null
+            }
+          ],
+          order: 1
+        },
+        {
+          id: 2,
+          authName: "文章内容",
+          path: "article",
+          children: [
+            {
+              id: 21,
+              authName: "文章列表",
+              path: "article",
+              children: [],
+              order: null
+            },
+            {
+              id: 22,
+              authName: "文章发布",
+              path: "article/add",
+              children: [],
+              order: null
+            }
+          ],
+          order: 1
+        }
       ],
+
       isCollapse: true
     };
   },
@@ -96,7 +178,7 @@ export default {
 };
 </script>
 <style scoped>
-body{
+body {
   margin: 0;
   padding: 0;
 }

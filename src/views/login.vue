@@ -123,7 +123,7 @@ export default {
           localStorage.setItem("access-user", JSON.stringify(result));
           window.localStorage.removeItem("register-user");
 
-          that.$router.push({ path: "/home/send" });
+          that.$router.push({ path: "/column" });
         } else {
           this.loading = false;
           this.$message.error("登录失败，账号或密码错误");
