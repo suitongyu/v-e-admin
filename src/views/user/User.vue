@@ -1,6 +1,6 @@
 <template>
   <div class="send">
-    <h1>栏目列表</h1>
+    <h1>用户列表</h1>
 
     <div class="screen">
       <el-select v-model="value" placeholder="请选择">
@@ -11,7 +11,6 @@
           :value="item.value"
         ></el-option>
       </el-select>
-      <el-button>应用</el-button>
       <el-button type="primary">发送</el-button>
     </div>
 
@@ -149,7 +148,7 @@ export default {
 <style scoped>
 .screen {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
 }
 
 /* 中部内容部分 */

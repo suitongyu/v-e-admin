@@ -7,9 +7,14 @@
       <el-container>
         <!-- 左边导航栏 -->
         <el-aside :width="!isCollapse ? '65px' : '200px'">
-          <el-switch v-model="isCollapse" active-color="#409EFF" inactive-color="#DCDFE6"></el-switch>
+          <el-switch
+            class="switch"
+            v-model="isCollapse"
+            active-color="#409EFF"
+            inactive-color="#DCDFE6"
+          ></el-switch>
           <el-menu
-            default-active="/column"
+            :default-active="defaultActive"
             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
@@ -18,6 +23,7 @@
             text-color="#fff"
             active-text-color="#ffd04b"
             :router="true"
+            :unique-opened="true"
           >
             <!-- <el-submenu index="1">
               <template slot="title">
@@ -34,7 +40,7 @@
                 <span slot="title">选项4</span>
                 <el-menu-item index="1-4-1">选项1</el-menu-item>
               </el-submenu>
-            </el-submenu> -->
+            </el-submenu>-->
 
             <!-- <el-menu-item index="2">
               <i class="el-icon-menu"></i>
@@ -48,37 +54,45 @@
               </template>
             </el-menu-item>-->
 
-             <!-- 一级菜单  -->
+            <!-- 一级菜单  -->
             <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
               <!-- 一级菜单的模板区域 -->
               <template slot="title">
                 <i :class="iconObj[item.id]"></i>
-                <span>{{ item.authName}}</span>
+                <span>{{item.authName}}</span>
               </template>
               <!-- 二级菜单 -->
               <el-menu-item
                 :index="'/' + subItem.path"
                 v-for="subItem in item.children"
                 :key="subItem.id"
-                
               >
-              <!-- @click="saveNavState('/' + subItem.path)" -->
+                <!-- @click="saveNavState('/' + subItem.path)" -->
                 <!-- 导航开启路由模式：
                 将index值作为导航路由-->
                 <!-- 二级菜单的模板区域 -->
                 <template slot="title">
-                  <i class="el-icon-menu"></i>
-                  <span>{{ subItem.authName}}</span>
+                  <!-- <i class="el-icon-menu"></i> -->
+                  <span>{{subItem.authName}}</span>
                 </template>
               </el-menu-item>
             </el-submenu>
-           
-
           </el-menu>
         </el-aside>
         <!-- 右边内容部分 -->
         <el-main>
           <router-view></router-view>
+           
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
+</template>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
+</template>
         </el-main>
       </el-container>
     </el-container>
@@ -109,13 +123,24 @@ export default {
       // ],
 
       // 左侧菜单数据
+      // iconObj: {
+      //   "1": "iconfont icon-user",
+      //   "2": "iconfont icon-tijikongjian",
+      //   "3": "iconfont icon-shangpin",
+      //   "4": "iconfont icon-danju",
+      //   "5": "iconfont icon-baobiao"
+      // },
+      defaultActive: "",
       iconObj: {
-        "1": "iconfont icon-user",
-        "2": "iconfont icon-tijikongjian",
-        "3": "iconfont icon-shangpin",
-        "4": "iconfont icon-danju",
-        "5": "iconfont icon-baobiao"
+        "1": "el-icon-s-grid",
+        "2": "el-icon-s-order",
+        "3": "el-icon-s-shop",
+        "4": "el-icon-picture",
+        "5": "el-icon-camera-solid",
+        "6": "el-icon-s-operation",
+        "7": "el-icon-s-custom"
       },
+
       //写死数据
       menuList: [
         {
@@ -130,7 +155,7 @@ export default {
               children: [],
               order: null
             },
-             {
+            {
               id: 12,
               authName: "添加栏目",
               path: "column/add",
@@ -161,11 +186,136 @@ export default {
             }
           ],
           order: 1
+        },
+        {
+          id: 3,
+          authName: "产品内容",
+          path: "goods",
+          children: [
+            {
+              id: 31,
+              authName: "产品列表",
+              path: "goods",
+              children: [],
+              order: null
+            },
+            {
+              id: 32,
+              authName: "产品发布",
+              path: "goods/add",
+              children: [],
+              order: null
+            }
+          ],
+          order: 1
+        },
+        {
+          id: 4,
+          authName: "图片内容",
+          path: "picture",
+          children: [
+            {
+              id: 41,
+              authName: "所有图片",
+              path: "picture",
+              children: [],
+              order: null
+            },
+            {
+              id: 42,
+              authName: "上传图片",
+              path: "picture/add",
+              children: [],
+              order: null
+            }
+          ],
+          order: 1
+        },
+        {
+          id: 5,
+          authName: "视频管理",
+          path: "picture",
+          children: [
+            {
+              id: 51,
+              authName: "所有视频",
+              path: "picture",
+              children: [],
+              order: null
+            },
+            {
+              id: 52,
+              authName: "上传视频",
+              path: "picture/add",
+              children: [],
+              order: null
+            }
+          ],
+          order: 1
+        },
+        {
+          id: 6,
+          authName: "功能管理",
+          path: "management",
+          children: [
+            {
+              id: 61,
+              authName: "锚文本",
+              path: "management/text",
+              children: [],
+              order: null
+            },
+            {
+              id: 62,
+              authName: "友情链接",
+              path: "management/link",
+              children: [],
+              order: null
+            },
+            {
+              id: 63,
+              authName: "tags标签",
+              path: "management/tags",
+              children: [],
+              order: null
+            }
+          ],
+          order: 1
+        },
+        {
+          id: 7,
+          authName: "用户管理",
+          path: "user",
+          children: [
+            {
+              id: 71,
+              authName: "用户列表",
+              path: "user",
+              children: [],
+              order: null
+            },
+            {
+              id: 72,
+              authName: "添加用户",
+              path: "user/add",
+              children: [],
+              order: null
+            }
+          ],
+          order: 1
         }
       ],
 
       isCollapse: true
     };
+  },
+  created() {
+    this.setCurrentRoute();
+  },
+  watch: {
+    $route() {
+      this.setCurrentRoute();
+    }
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -173,6 +323,12 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+
+    setCurrentRoute() {
+      this.defaultActive = this.$route.path; //关键   通过他就可以监听到当前路由状态并激活当前菜单
+      // console.log(this.$route.path)
+      // console.log(this.$route)
     }
   }
 };
@@ -205,8 +361,12 @@ body {
   line-height: 200px;
 }
 
+.switch {
+  margin: 3px 0;
+}
+
 .el-main {
-  background-color: #e9eef3;
+  background-color: #ffffff;
   color: #333;
   /* text-align: center; */
   /* line-height: 160px; */

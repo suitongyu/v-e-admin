@@ -11,11 +11,26 @@ const Column = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../vi
 const ColumnAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/column/Add.vue')
 const Article = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/article/Article.vue')
 const ArticleAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/article/Add.vue')
+const Goods = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/goods/Goods.vue')
+const GoodsAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/goods/Add.vue')
+const Picture = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/picture/Picture.vue')
+const PictureAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/picture/Add.vue')
+const Video = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/video/Video.vue')
+const VideoAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/video/Add.vue')
+
+const ManagementLink = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/management/Link.vue')
+const ManagementText = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/management/Text.vue')
+const ManagementTags = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/management/Tags.vue')
+
+const User = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/user/User.vue')
+const UserAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/user/Add.vue')
 
 
 
-const Send = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Send.vue')
-const Management = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Management.vue')
+
+
+// const Send = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Send.vue')
+// const Management = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Management.vue')
 
 const About = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/About.vue')
 
@@ -57,14 +72,51 @@ const routes = [
         path: 'article/add',
         component: ArticleAdd
       },
-      // {
-      //   path: 'product',
-      //   component: Product
-      // },
-      // {
-      //   path: 'video',
-      //   component: Video
-      // },
+      {
+        path: 'goods',
+        component: Goods
+      },
+      {
+        path: 'goods/add',
+        component: GoodsAdd
+      },
+
+      {
+        path: 'picture',
+        component: Picture
+      },
+      {
+        path: 'picture/add',
+        component: PictureAdd
+      },
+      {
+        path: 'video',
+        component: Video
+      },
+      {
+        path: 'video/add',
+        component: VideoAdd
+      },
+      {
+        path: 'management/link',
+        component: ManagementLink
+      },
+      {
+        path: 'management/text',
+        component: ManagementText
+      },
+      {
+        path: 'management/tags',
+        component: ManagementTags
+      },
+      {
+        path: 'user',
+        component: User
+      },
+      {
+        path: 'user/add',
+        component: UserAdd
+      },
       // {
       //   path: 'picture',
       //   component: Picture
