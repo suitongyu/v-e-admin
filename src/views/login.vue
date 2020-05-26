@@ -48,7 +48,7 @@
       </el-form-item>
     </el-form>
     <div class="footer">
-      <footer-copyright></footer-copyright>
+      <!-- <footer-copyright></footer-copyright> -->
     </div>
   </div>
 </template>
@@ -92,7 +92,8 @@ export default {
       },
       pwdFocus: false,
       allowLogin: true,
-      checked: true
+      checked: true,
+      userToken: ""
     };
   },
   created() {
@@ -105,7 +106,7 @@ export default {
   },
   methods: {
     handleLogin() {
-      let that = this;
+      // let that = this;
       let result = {
         id: "1",
         username: "admin",
@@ -114,22 +115,59 @@ export default {
         email: "888888@163.com"
       };
       this.loading = true;
-      // let status = API.login(result);  //判断登录
-      let status = "success";
 
-      setTimeout(function() {
-        // 延时模拟登录
+      // 这里添加登录axios请求
+
+      // this.axios({
+      //   method: "post",
+      //   url: "/user/login", //登录接口
+      //   data: result 
+      // })
+      //   .then(res => {
+      //     console.log(res.data);
+      //     this.userToken = "Bearer " + res.data.data.body.token;
+      //     将用户token保存到vuex中
+      //     this.$store.commit("changeLogin", this.userToken); //token存入VUEX
+      //     this.$router.push({ path: "/column" });
+      //     console.log("登录成功");
+      //   })
+      //   .catch(error => {
+      //     console.log("账号或密码错误");
+      //     console.log(error);
+      //   });
+
+
+      // 模拟：没有数据接口
+      // let status = API.login(result);  //判断登录
+      let status = "success"; //模拟登录状态
+
+      setTimeout(() => {
+        // 延时模拟
         if (status == "success") {
-          localStorage.setItem("access-user", JSON.stringify(result));
+          //登录成功 取返回值 包含token
+
+          let token = 123456789; //假设
+
+          this.userToken = token;
+
+          localStorage.setItem("access-user", JSON.stringify(result)); //登录信息存入localStorage
+
+          // that.changeLogin({ Authorization: that.userToken });
+          this.$store.commit("changeLogin", this.userToken); //token存入VUEX
+
+          console.log(this.userToken);
+
           window.localStorage.removeItem("register-user");
 
-          that.$router.push({ path: "/column" });
+          this.$router.push({ path: "/column" });
+
+          console.log("登录成功");
         } else {
           this.loading = false;
           this.$message.error("登录失败，账号或密码错误");
         }
+      }, 1000);
 
-      }, 2000);
 
     },
     validateCorrect() {

@@ -4,6 +4,7 @@
 
         <!-- vuex  -->
       <p>{{$store.state.newName}}</p>
+      <p>{{$store.state.Authorization}}</p>
   </div>
 
 </template>

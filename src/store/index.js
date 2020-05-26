@@ -10,7 +10,10 @@ Vue.use(Vuex)
 // 首先声明一个需要全局维护的状态state
 const state = {
   newName: '名字',
-  id: '123'
+  id: '123',
+  // 存储token
+  Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
+  
 }
 
 // 注册上边引入的各大模块

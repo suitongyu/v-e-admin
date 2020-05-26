@@ -5,34 +5,34 @@ import VueRouter from 'vue-router'
 // import About from '../views/About.vue'
 
 // 路由懒加载
-const Home = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/Home.vue')
-const Login = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/login.vue')
-const Column = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/column/Column.vue')
-const ColumnAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/column/Add.vue')
-const Article = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/article/Article.vue')
-const ArticleAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/article/Add.vue')
-const Goods = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/goods/Goods.vue')
-const GoodsAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/goods/Add.vue')
-const Picture = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/picture/Picture.vue')
-const PictureAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/picture/Add.vue')
-const Video = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/video/Video.vue')
-const VideoAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/video/Add.vue')
+const Home = () => import('../views/Home.vue')
+const Login = () => import('../views/login.vue')
+const Column = () => import('../views/column/Column.vue')
+const ColumnAdd = () => import('../views/column/Add.vue')
+const Article = () => import('../views/article/Article.vue')
+const ArticleAdd = () => import('../views/article/Add.vue')
+const Goods = () => import('../views/goods/Goods.vue')
+const GoodsAdd = () => import('../views/goods/Add.vue')
+const Picture = () => import('../views/picture/Picture.vue')
+const PictureAdd = () => import('../views/picture/Add.vue')
+const Video = () => import('../views/video/Video.vue')
+const VideoAdd = () => import('../views/video/Add.vue')
 
-const ManagementLink = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/management/Link.vue')
-const ManagementText = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/management/Text.vue')
-const ManagementTags = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/management/Tags.vue')
+const ManagementLink = () => import('../views/management/Link.vue')
+const ManagementText = () => import('../views/management/Text.vue')
+const ManagementTags = () => import('../views/management/Tags.vue')
 
-const User = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/user/User.vue')
-const UserAdd = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/user/Add.vue')
-
-
+const User = () => import('../views/user/User.vue')
+const UserAdd = () => import('../views/user/Add.vue')
 
 
 
-// const Send = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Send.vue')
-// const Management = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/homemodule/Management.vue')
 
-const About = () => import( /* webpackChunkName: "Login_Home_Welcome" */ '../views/About.vue')
+
+// const Send = () => import('../views/homemodule/Send.vue')
+// const Management = () => import( '../views/homemodule/Management.vue')
+
+const About = () => import('../views/About.vue')
 
 Vue.use(VueRouter)
 
@@ -157,5 +157,21 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
+// 导航守卫
+// 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    next();
+  } else {
+    let token = localStorage.getItem('Authorization');
+    if (token === null || token === '') {
+      next('/login');
+    } else {
+      next();
+    }
+  }
+});
 
 export default router

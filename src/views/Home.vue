@@ -81,6 +81,7 @@
         </el-aside>
         <!-- 右边内容部分 -->
         <el-main>
+         
           <router-view></router-view>
            
         </el-main>
@@ -88,16 +89,7 @@
     </el-container>
   </div>
 </template>
-        </el-main>
-      </el-container>
-    </el-container>
-  </div>
-</template>
-        </el-main>
-      </el-container>
-    </el-container>
-  </div>
-</template>
+      
 
 <script>
 // @ is an alias to /src
