@@ -126,7 +126,7 @@ export default {
       //   .then(res => {
       //     console.log(res.data);
       //     this.userToken = "Bearer " + res.data.data.body.token;
-      //     将用户token保存到vuex中
+      //     //将用户token保存到vuex中
       //     this.$store.commit("changeLogin", this.userToken); //token存入VUEX
       //     this.$router.push({ path: "/column" });
       //     console.log("登录成功");

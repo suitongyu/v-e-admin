@@ -1,13 +1,16 @@
 import originAxios from 'axios'
-// import qs from 'qs'
+import qs from 'qs'
 
 export default function axios(option) {
 	return new Promise((resolve, reject) => {
 		// 1.创建axios的实例
 		const instance = originAxios.create({
-			baseURL: 'http://123.207.32.32:8000/api/m3',
+			baseURL: 'https://app.gutongbao.com/',
 			timeout: 5000
 		});
+
+		// 设置post请求头
+		instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 		// 配置请求和响应拦截
 		instance.interceptors.request.use(config => {
@@ -16,12 +19,16 @@ export default function axios(option) {
 
 			// 2.某些请求要求用户必须登录, 判断用户是否有token, 如果没有token跳转到login页面
 
+			// ————————————————————
 			// 在请求头中加token
-			config => {
-				if (localStorage.getItem('Authorization')) {
-					config.headers.Authorization = localStorage.getItem('Authorization');
-				}
+			//从localStorage中获取token
+			if (localStorage.getItem('Authorization')) {
+				config.headers.Authorization = localStorage.getItem('Authorization');
 			}
+			//从vuex中获取token
+			//const token = store.state.token;
+			//token && (config.headers.Authorization = token);
+			//——————————————————————
 
 			// 3.对请求的参数进行序列化(看服务器是否需要序列化)
 			// config.data = qs.stringify(config.data)
@@ -36,10 +43,12 @@ export default function axios(option) {
 		})
 
 		instance.interceptors.response.use(response => {
+			console.log('请求成功');
 			// console.log('来到了response拦截success中');
 			return response.data
 		}, err => {
-			console.log('来到了response拦截failure中');
+			console.log('请求失败');
+			// console.log('来到了response拦截failure中');
 			console.log(err);
 			if (err && err.response) {
 				switch (err.response.status) {
